@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         bool puedeMover = true;
         if(!(Math.Abs(transform.position.x - referencia.transform.position.x) > maxMovement || Math.Abs(transform.position.y - referencia.transform.position.y) > maxMovement))
         {
@@ -90,6 +91,6 @@ public class CameraController : MonoBehaviour
         tmp.z = ZOriginal;
         this.transform.position = tmp;
 
-
+        */
     }
 }

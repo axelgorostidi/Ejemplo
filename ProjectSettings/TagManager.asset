@@ -9,6 +9,11 @@ TagManager:
   - Scenario
   - BulletEnemy
   - lineBlock
+  - roomEasy
+  - roomMedium
+  - singleton
+  - roomIni
+  - room
   layers:
   - Default
   - TransparentFX

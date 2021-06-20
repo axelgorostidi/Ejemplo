@@ -22,11 +22,21 @@ public class EnemyMecaSpider : MonoBehaviour
     public float typeShoot = 1;
     public GameObject Bullet;
 
+    //Sprite
+    private Color originalColor;
+    public Color damageColor;
+    public float colorTime;
+    public float currentColorTime;
+
+    //Mecanics
+    public float life;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
         randX = returnRandomValue();
         randY = returnRandomValue();
     }
@@ -69,6 +79,11 @@ public class EnemyMecaSpider : MonoBehaviour
                 spriteRenderer.flipX = false;
             }
         }
+
+        if (spriteRenderer.color != originalColor)
+        {
+            manageColorDamage();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -76,7 +91,13 @@ public class EnemyMecaSpider : MonoBehaviour
 
         if (collision.gameObject.tag == "Bullet")
         {
-            Destroy(gameObject, 0f);
+            spriteRenderer.color = damageColor;
+            currentColorTime = colorTime;
+            life -= 1f;
+            if(life <= 0f)
+            {
+                Destroy(gameObject, 0f);
+            }
         }
 
         if (collision.gameObject.tag == "Scenario")
@@ -85,6 +106,18 @@ public class EnemyMecaSpider : MonoBehaviour
             randY = returnRandomValue();
         }
 
+    }
+
+    void manageColorDamage()
+    {
+        if (currentColorTime > 0)
+        {
+            currentColorTime -= Time.deltaTime;
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
     }
 
     void shoot()

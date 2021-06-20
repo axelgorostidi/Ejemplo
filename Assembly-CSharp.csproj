@@ -57,12 +57,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\EnemyMecaSpider.cs" />
-    <Compile Include="Assets\Scripts\BulletMovement.cs" />
-    <Compile Include="Assets\Scripts\EnemyBeep.cs" />
     <Compile Include="Assets\Scripts\RoomGenericController.cs" />
     <Compile Include="Assets\Scripts\LineBlockController.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\singletonManager.cs" />
+    <Compile Include="Assets\Scripts\EnemyMecaSpider.cs" />
+    <Compile Include="Assets\Scripts\BulletMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyTeraBot.cs" />
+    <Compile Include="Assets\Scripts\BulletFreeMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyBeep.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\greenWallIni.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -27,20 +27,32 @@ public class PlayerController : MonoBehaviour{
     private Animator anim;
     public bool walk;
 
+    private GameObject camGO;
+    private GameObject roomIni;
+
     //UI
     public float lifeMax = 100f;
     public float lifeCurrent = 100f;
     public Image lifeBar;
     public Image dashBar;
+    public Text roomsPassedText;
+
+    //Sprite
+    private Color originalColor;
+    public Color damageColor;
+    public float colorTime;
+    public float currentColorTime;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        camGO = GameObject.FindGameObjectWithTag("MainCamera");
+        roomIni = GameObject.FindGameObjectWithTag("roomIni");
         isDashing = false;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     // Update is called once per frame
@@ -49,6 +61,7 @@ public class PlayerController : MonoBehaviour{
 
         lifeBar.fillAmount = lifeCurrent / lifeMax;
         dashBar.fillAmount = (startDashTimerFreeze - currentDashTimerFreeze)/2;// currentDashTimerFreeze /startDashTimerFreeze;
+        roomsPassedText.text = (GameManager.game.contRoomsPassed).ToString();
 
         anim.SetBool("walk", walk);
 
@@ -97,6 +110,11 @@ public class PlayerController : MonoBehaviour{
         //----------------------------------------------
         dash(moveX, moveY);
         bulletShoot();
+        if(spriteRenderer.color != originalColor)
+        {
+            manageColorDamage();
+        }
+        
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -105,23 +123,45 @@ public class PlayerController : MonoBehaviour{
         if (collision.gameObject.tag == "BulletEnemy")
         {
             lifeCurrent -= 10f;
+            spriteRenderer.color = damageColor;
+            currentColorTime = colorTime;
             checkDead();
         }
 
         if (collision.gameObject.tag == "Enemy")
         {
             lifeCurrent -= 10f;
+            spriteRenderer.color = damageColor;
+            currentColorTime = colorTime;
             checkDead();
         }
 
+    }
+
+    void manageColorDamage()
+    {
+        if (currentColorTime > 0)
+        {
+            currentColorTime -= Time.deltaTime;
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
     }
 
     void checkDead()
     {
         if (lifeCurrent <= 0)
         {
-            transform.position = new Vector3(-22.14f, -0.32f, 0f);
+            transform.position = new Vector3(10000f, 10000f, 0f);
             lifeCurrent = 100f;
+            GameManager.game.contRoomsPassed = 0;
+            Transform rigidBody_cam = camGO.GetComponent<Transform>();
+            rigidBody_cam.position = new Vector3(10000f, 10000f, -10f);
+            GameManager.game.destroyRooms();
+           //Transform rigidBody_room = roomIni.GetComponent<Transform>();
+            //rigidBody_room.position = new Vector3(100f, 100f, 0f);
         }
     }
 

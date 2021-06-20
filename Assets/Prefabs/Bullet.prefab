@@ -134,5 +134,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ac6f326c6b6e040bf9eff26ed5dc96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirBullet: 7
-  speedBullet: 8
+  dirBullet: 8
+  speedBullet: 10

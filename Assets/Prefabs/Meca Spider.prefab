@@ -171,3 +171,7 @@ MonoBehaviour:
   currentTimerRandShoot: 1
   typeShoot: 1
   Bullet: {fileID: 5015462891995433118, guid: 2dd491f5909bff245bff29be3f0ebb4b, type: 3}
+  damageColor: {r: 1, g: 0.28627452, b: 0.28627452, a: 1}
+  colorTime: 0.1
+  currentColorTime: 0
+  life: 5

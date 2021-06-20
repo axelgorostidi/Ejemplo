@@ -23,7 +23,7 @@ public class RoomGenericController : MonoBehaviour
     {
         if(Enemies.Count == 0)
         {
-            openDoors();
+       //     openDoors();
         }
     }
     
