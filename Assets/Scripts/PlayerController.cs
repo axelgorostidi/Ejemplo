@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour{
     private GameObject camGO;
     private GameObject roomIni;
 
+    private GameObject shootSound;
+
     //UI
     public float lifeMax = 100f;
     public float lifeCurrent = 100f;
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour{
     //Sprite
     private Color originalColor;
     public Color damageColor;
+    public Color lifeColor;
     public float colorTime;
     public float currentColorTime;
 
@@ -48,6 +51,9 @@ public class PlayerController : MonoBehaviour{
     {
         camGO = GameObject.FindGameObjectWithTag("MainCamera");
         roomIni = GameObject.FindGameObjectWithTag("roomIni");
+        shootSound = GameObject.FindGameObjectWithTag("shootSound");
+        
+
         isDashing = false;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -64,6 +70,11 @@ public class PlayerController : MonoBehaviour{
         roomsPassedText.text = (GameManager.game.contRoomsPassed).ToString();
 
         anim.SetBool("walk", walk);
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            GameManager.game.mainMenu();
+        }
 
         //movimiento WASD------------------------------
         if (Input.GetKey("w"))
@@ -128,12 +139,20 @@ public class PlayerController : MonoBehaviour{
             checkDead();
         }
 
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "obstacleHit")
         {
             lifeCurrent -= 10f;
             spriteRenderer.color = damageColor;
             currentColorTime = colorTime;
             checkDead();
+        }
+
+        if (collision.gameObject.tag == "lifeOrb")
+        {
+            lifeCurrent += 10f;
+            if (lifeCurrent > 100f) lifeCurrent = 100f;
+            spriteRenderer.color = lifeColor;
+            currentColorTime = colorTime + 0.2f;
         }
 
     }
@@ -154,14 +173,18 @@ public class PlayerController : MonoBehaviour{
     {
         if (lifeCurrent <= 0)
         {
-            transform.position = new Vector3(10000f, 10000f, 0f);
+            //transform.position = new Vector3(10000f, 10000f, 0f);
+           
             lifeCurrent = 100f;
             GameManager.game.contRoomsPassed = 0;
-            Transform rigidBody_cam = camGO.GetComponent<Transform>();
-            rigidBody_cam.position = new Vector3(10000f, 10000f, -10f);
+           
+            //Transform rigidBody_cam = camGO.GetComponent<Transform>();
+           
+            //rigidBody_cam.position = new Vector3(10000f, 10000f, -10f);
+            
             GameManager.game.destroyRooms();
-           //Transform rigidBody_room = roomIni.GetComponent<Transform>();
-            //rigidBody_room.position = new Vector3(100f, 100f, 0f);
+            GameManager.game.changeSceneGameOver();
+           
         }
     }
 
@@ -211,6 +234,9 @@ public class PlayerController : MonoBehaviour{
 
         if (Bullet != null && (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right")) && isShooting == true)
         {
+            
+            AudioSource shootAudioSource = shootSound.GetComponent<AudioSource>();
+            shootAudioSource.Play();
             BulletMovement scriptBullet = Bullet.GetComponent<BulletMovement>();
             if (Input.GetKey("up") && !Input.GetKey("right") && !Input.GetKey("left") && !Input.GetKey("down"))
             {

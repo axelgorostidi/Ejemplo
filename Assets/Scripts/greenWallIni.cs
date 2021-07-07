@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class greenWallIni : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class greenWallIni : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            GameObject room = roomsEasy[1];
+            int rand = UnityEngine.Random.Range(0, 5);
+            GameObject room = roomsEasy[rand];
             Transform rigidBody_player = player.GetComponent<Transform>();
             Transform rigidBody_cam = camGO.GetComponent<Transform>();
             rigidBody_player.position = new Vector3(100f, 100f, 0f);

@@ -15,9 +15,12 @@ public class EnemyBeep : MonoBehaviour {
     public float timerRandMovement = 2f;
     public float currentTimerRandMovement = 2f;
 
+    private GameObject hitSound;
+
     // Start is called before the first frame update
     void Start()
     {
+        hitSound = GameObject.FindGameObjectWithTag("hitSound");
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         randX = returnRandomValue();
@@ -64,13 +67,16 @@ public class EnemyBeep : MonoBehaviour {
         
         if (collision.gameObject.tag == "Bullet")
         {
+            AudioSource hitAudioSource = hitSound.GetComponent<AudioSource>();
+            hitAudioSource.Play();
+            GameManager.game.contEnemies -= 1;
             Destroy(gameObject, 0f);
         }
 
         if (collision.gameObject.tag == "Scenario")
         {
-            randX = returnRandomValue();
-            randY = returnRandomValue();
+            randX = -randX;//returnRandomValue();
+            randY = -randY;//returnRandomValue();
         }
 
     }

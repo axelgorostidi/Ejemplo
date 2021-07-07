@@ -21,6 +21,11 @@ public class EnemyMecaSpider : MonoBehaviour
     public float currentTimerRandShoot = 2f;
     public float typeShoot = 1;
     public GameObject Bullet;
+    public GameObject lifeOrb;
+
+
+    private GameObject shootMecaSpiderSound;
+    private GameObject hitSound;
 
     //Sprite
     private Color originalColor;
@@ -34,6 +39,8 @@ public class EnemyMecaSpider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shootMecaSpiderSound = GameObject.FindGameObjectWithTag("mecaSpiderShootSound");
+        hitSound = GameObject.FindGameObjectWithTag("hitSound");
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
@@ -91,19 +98,24 @@ public class EnemyMecaSpider : MonoBehaviour
 
         if (collision.gameObject.tag == "Bullet")
         {
+            //hitSound.Play();
+            AudioSource hitAudioSource = hitSound.GetComponent<AudioSource>();
+            hitAudioSource.Play();
             spriteRenderer.color = damageColor;
             currentColorTime = colorTime;
             life -= 1f;
             if(life <= 0f)
             {
+                controlLifeOrb();
+                GameManager.game.contEnemies -= 1;
                 Destroy(gameObject, 0f);
             }
         }
 
         if (collision.gameObject.tag == "Scenario")
         {
-            randX = returnRandomValue();
-            randY = returnRandomValue();
+            randX = -randX;
+            randY = -randY;
         }
 
     }
@@ -122,7 +134,9 @@ public class EnemyMecaSpider : MonoBehaviour
 
     void shoot()
     {
-       
+        //shootMecaSpiderSound.Play();
+        AudioSource shootAudioSource = shootMecaSpiderSound.GetComponent<AudioSource>();
+        shootAudioSource.Play();
         typeShoot = returnRandomValue();
         Debug.Log(typeShoot);
 
@@ -156,6 +170,16 @@ public class EnemyMecaSpider : MonoBehaviour
             BulletMovement scriptBullet4 = Bullet.GetComponent<BulletMovement>();
             scriptBullet4.dirBullet = Direction.upLeft;
             Instantiate(Bullet, transform.position, Quaternion.identity);
+        }
+    }
+
+    void controlLifeOrb()
+    {
+        float rand = UnityEngine.Random.Range(-1f, 1f);
+        if(rand > 0.5f)
+        {
+            lifeOrbController lifeOrbController = lifeOrb.GetComponent<lifeOrbController>();
+            Instantiate(lifeOrbController, transform.position, Quaternion.identity);
         }
     }
 

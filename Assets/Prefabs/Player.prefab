@@ -104,13 +104,13 @@ MonoBehaviour:
   startDashTimerFreeze: 2
   currentDashTimerFreeze: 0
   walk: 0
-  room: {fileID: 1259061776688558508, guid: ea43905d0d8fdac47b9de8fffbfbbb98, type: 3}
   lifeMax: 100
   lifeCurrent: 100
   lifeBar: {fileID: 0}
   dashBar: {fileID: 0}
   roomsPassedText: {fileID: 0}
   damageColor: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
+  lifeColor: {r: 0.6179246, g: 1, b: 0.7031524, a: 1}
   colorTime: 0.1
   currentColorTime: 0
 --- !u!212 &907356475397739410
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 6047446882277414007, guid: 18d47b05b9061a34980c5942bc865c17, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.53333336, g: 0.93877965, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

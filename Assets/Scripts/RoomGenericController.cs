@@ -15,15 +15,16 @@ public class RoomGenericController : MonoBehaviour
     private Color originalWallAntyEnemyColor;
     void Start()
     {
+        GameManager.game.contEnemies = Enemies.Count;
         originalWallAntyEnemyColor = wallAntyEnemyRight.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Enemies.Count == 0)
+        if(GameManager.game.contEnemies <= 0)
         {
-       //     openDoors();
+            openDoors();
         }
     }
     
@@ -65,13 +66,14 @@ public class RoomGenericController : MonoBehaviour
 
     public void openDoors()
     {
-        wallAntyEnemyRight.GetComponent<SpriteRenderer>().color = originalWallAntyEnemyColor;
+        Debug.Log("desbloquear puerdoors");
+        wallAntyEnemyRight.GetComponent<SpriteRenderer>().color = GameManager.game.colorWallAntiEnemy;
         wallAntyEnemyRight.layer = 7;
-        wallAntyEnemyLeft.GetComponent<SpriteRenderer>().color = originalWallAntyEnemyColor;
+        wallAntyEnemyLeft.GetComponent<SpriteRenderer>().color = GameManager.game.colorWallAntiEnemy;
         wallAntyEnemyLeft.layer = 7;
-        wallAntyEnemyUp.GetComponent<SpriteRenderer>().color = originalWallAntyEnemyColor;
+        wallAntyEnemyUp.GetComponent<SpriteRenderer>().color = GameManager.game.colorWallAntiEnemy;
         wallAntyEnemyUp.layer = 7;
-        wallAntyEnemyDown.GetComponent<SpriteRenderer>().color = originalWallAntyEnemyColor;
+        wallAntyEnemyDown.GetComponent<SpriteRenderer>().color = GameManager.game.colorWallAntiEnemy;
         wallAntyEnemyDown.layer = 7;
     }
 

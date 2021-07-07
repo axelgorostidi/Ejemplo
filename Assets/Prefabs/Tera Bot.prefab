@@ -123,7 +123,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -3269990443725010294, guid: 4d01c59e7e5b37e41b59a7fd4008f24c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8820755, b: 0.9915274, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   timerRandShoot: 1
   currentTimerRandShoot: 1
   Bullet: {fileID: 1449968271185288836, guid: 14ddd6ee4596b5a4391042930ae4efa6, type: 3}
+  lifeOrb: {fileID: 5950416034444396192, guid: 0682df4d5fb019144bc4163733a2a8b4, type: 3}
   player: {fileID: 0}
   damageColor: {r: 1, g: 0.28627452, b: 0.28627452, a: 1}
   colorTime: 0.1

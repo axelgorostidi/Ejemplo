@@ -20,7 +20,11 @@ public class EnemyTeraBot : MonoBehaviour
     public float timerRandShoot = 2f;
     public float currentTimerRandShoot = 2f;
     public GameObject Bullet;
+    public GameObject lifeOrb;
     public GameObject player;
+
+    private GameObject shootTeraBotSound;
+    private GameObject hitSound;
 
     //Sprite
     private Color originalColor;
@@ -34,12 +38,14 @@ public class EnemyTeraBot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shootTeraBotSound = GameObject.FindGameObjectWithTag("teraBotShootSound");
+        hitSound = GameObject.FindGameObjectWithTag("hitSound");
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         randX = returnRandomValue();
         randY = returnRandomValue();
-        player = GameManager.game.player;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -92,11 +98,15 @@ public class EnemyTeraBot : MonoBehaviour
 
         if (collision.gameObject.tag == "Bullet")
         {
+            AudioSource hitAudioSource = hitSound.GetComponent<AudioSource>();
+            hitAudioSource.Play();
             spriteRenderer.color = damageColor;
             currentColorTime = colorTime;
             life -= 1f;
             if (life <= 0f)
             {
+                controlLifeOrb();
+                GameManager.game.contEnemies -= 1;
                 Destroy(gameObject, 0f);
             }
         }
@@ -123,6 +133,8 @@ public class EnemyTeraBot : MonoBehaviour
 
     void shoot()
     {
+        AudioSource shootAudioSource = shootTeraBotSound.GetComponent<AudioSource>();
+        shootAudioSource.Play();
         Transform rigidBody_player = player.GetComponent<Transform>();
         float player_posX = rigidBody_player.position.x;
         float player_posY = rigidBody_player.position.y;
@@ -164,6 +176,16 @@ public class EnemyTeraBot : MonoBehaviour
         scriptBullet8.dir = dir_to_player_versor + new Vector3(returnRandomSmallValue(), returnRandomSmallValue(), 0f);
         Instantiate(Bullet, transform.position, Quaternion.identity);
 
+    }
+
+    void controlLifeOrb()
+    {
+        float rand = UnityEngine.Random.Range(-1f, 1f);
+        if (rand > 0f)
+        {
+            lifeOrbController lifeOrbController = lifeOrb.GetComponent<lifeOrbController>();
+            Instantiate(lifeOrbController, transform.position, Quaternion.identity);
+        }
     }
 
     float returnRandomSmallValue()

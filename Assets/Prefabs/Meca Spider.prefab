@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1314181432612018210}
   m_Layer: 9
   m_Name: Meca Spider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -1111034614675636907, guid: 99a3788fc9b4aaa4280dbc2cfe4dd6ca, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.91642183, b: 0.85490197, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -164,13 +164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6719f5613813f794fbbb7cd602bec325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  timerRandMovement: 2
-  currentTimerRandMovement: 2
+  speed: 5
+  timerRandMovement: 1
+  currentTimerRandMovement: 1
   timerRandShoot: 1
   currentTimerRandShoot: 1
   typeShoot: 1
   Bullet: {fileID: 5015462891995433118, guid: 2dd491f5909bff245bff29be3f0ebb4b, type: 3}
+  lifeOrb: {fileID: 5950416034444396192, guid: 0682df4d5fb019144bc4163733a2a8b4, type: 3}
   damageColor: {r: 1, g: 0.28627452, b: 0.28627452, a: 1}
   colorTime: 0.1
   currentColorTime: 0

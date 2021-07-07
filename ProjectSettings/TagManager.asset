@@ -14,6 +14,12 @@ TagManager:
   - singleton
   - roomIni
   - room
+  - obstacleHit
+  - hitSound
+  - teraBotShootSound
+  - mecaSpiderShootSound
+  - shootSound
+  - lifeOrb
   layers:
   - Default
   - TransparentFX
@@ -25,7 +31,7 @@ TagManager:
   - wallAntiEnemy
   - bulletEnemy
   - enemy
-  - 
+  - lifeOrb
   - 
   - 
   - 
